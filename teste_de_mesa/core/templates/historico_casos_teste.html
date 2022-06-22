@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Teste de Mesa - Histórico</title>
+
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/historico.css' %}" />
+    </head>
+    <body>
+        {% include 'navbar.html' %}
+
+        <header>
+            <h1>Casos do teste</h1>
+            <p>Veja o histórico dos casos de teste realizados</p>
+        </header>
+
+        <div class="db-table-wrapper">
+            {% if casos_teste %}
+            <table class="db-table" type="text">
+                <tr>
+                    <th>ID</th>
+                    <th>Programa O</th>
+                    <th>Programa P</th>
+                    <th>Valores teste</th>
+                    <th>Testes de mesa</th>
+                </tr>
+                {% for caso in casos_teste %}
+                <tr>
+                    <td>{{ caso.id }}</td>
+                    <td>
+                        <a href="{% url 'historico_programa_o' caso.id %}"
+                            ><button class="secondary-button">Ver</button></a>
+                    </td>
+                    <td>
+                        <a href="{% url 'historico_programa_p' caso.id %}"
+                            ><button class="secondary-button">Ver</button></a>
+                    </td>
+                    <td>
+                        <a href="{% url 'historico_valores_teste' caso.id %}"
+                            ><button class="secondary-button">Ver</button></a>
+                    </td>
+                    <td>
+                        <a href="{% url 'historico_testes_mesa' caso.id %}"
+                            ><button class="secondary-button">Ver</button></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <div id="no-register-div">
+                <h3>Não há casos de teste registrados</h3>
+            </div>
+            {% endif %}
+        </div>
+    </body>
+</html>
